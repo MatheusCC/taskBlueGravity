@@ -27,7 +27,7 @@ public class Shop : MonoBehaviour
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        CreateShopItens();
+        //CreateShopItens();
     }
 
 
@@ -35,7 +35,7 @@ public class Shop : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable()
     {
-        //CreateShopItens();
+        CreateShopItens();
     }
 
     //Create the shop itens from the list of objects

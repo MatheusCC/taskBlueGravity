@@ -5,7 +5,17 @@ using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Item", menuName = "ShopItem/Item")]
 public class ItemObject : ScriptableObject
-{
+{   
+    public enum ItemID
+    {
+        HELMET,
+        BODY,
+        WEAPON,
+        SHIELD
+    }
+
+    [SerializeField]
+    private ItemID itemID = ItemID.HELMET;
     [SerializeField] 
     private string itemName;
     [SerializeField]
@@ -25,5 +35,10 @@ public class ItemObject : ScriptableObject
     public float ItemPrice
     {
         get { return itemPrice; }
+    }
+
+    public ItemID ItemEnum
+    {
+        get { return itemID; }
     }
 }
