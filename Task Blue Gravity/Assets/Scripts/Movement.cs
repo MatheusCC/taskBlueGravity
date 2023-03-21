@@ -44,11 +44,11 @@ public class Movement : MonoBehaviour
 
         if (horizontalInput < 0 )
         {
-            newScale.x = 1f;
+            newScale.x = 2f;
         }
         else if(horizontalInput > 0)
         {
-            newScale.x = -1f;
+            newScale.x = -2f;
         }
 
         transform.localScale = newScale;

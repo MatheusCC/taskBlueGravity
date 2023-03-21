@@ -22,7 +22,8 @@ public class ItemObject : ScriptableObject
     private Sprite itemSprite = null;
     [SerializeField]
     private float itemPrice = 0f;
-
+    [SerializeField]
+    private bool isEquipped = false;
 
     public string ItemName
     {
@@ -40,5 +41,11 @@ public class ItemObject : ScriptableObject
     public ItemID ItemEnum
     {
         get { return itemID; }
+    }
+
+    public bool IsEquipped
+    {
+        get { return isEquipped; }
+        set { isEquipped = value; }
     }
 }

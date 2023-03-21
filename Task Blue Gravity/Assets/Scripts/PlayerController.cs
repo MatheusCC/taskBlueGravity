@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
     private struct Equipments
     {
         public ItemObject.ItemID itemID;
-        public SpriteRenderer equipSprite;
+        public SpriteRenderer spriteRender;
         public Sprite defaultSprite;
+        public ItemObject itemEquipped;
     }
 
+    /*
     [Header("Player Default Sprites")]
     [SerializeField]
     private Sprite body = null;
@@ -21,21 +23,17 @@ public class PlayerController : MonoBehaviour
     private Sprite shield = null;
     [SerializeField]
     private Sprite weapon = null;
+    */
 
     [SerializeField]
-    private Equipments[] equipments = null;
+    private Equipments[] playerEquipments = null;
 
     [SerializeField]
-    private List<ItemObject> playerItens = new List<ItemObject>();
+    private List<ItemObject> playerInventoryItens = new List<ItemObject>();
 
     public List<ItemObject> PlayerItens
     {
-        get { return playerItens; }
-    }
-
-    private void Awake()
-    {
-        EquipItens();
+        get { return playerInventoryItens; }
     }
 
     private void Update()
@@ -58,32 +56,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    private void EquipItens()
-    {
-        if(playerItens != null)
-        {
-            for (int i = 0; i < playerItens.Count; i++)
-            {
-                for (int y = 0; y < equipments.Length; y++)
-                {
-                    if (playerItens[i].ItemEnum == equipments[y].itemID)
-                    {
-                        equipments[y].equipSprite.sprite = playerItens[i].ItemSprite;
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
     private void EquipItem(ItemObject itemToAdd)
     {
-        for (int i = 0; i < equipments.Length; i++)
+        for (int i = 0; i < playerEquipments.Length; i++)
         {
-            if (itemToAdd.ItemEnum == equipments[i].itemID)
+            if (itemToAdd.ItemEnum == playerEquipments[i].itemID)
             {
-                equipments[i].equipSprite.sprite = itemToAdd.ItemSprite;
+                //Remove old item equipped
+                if(playerEquipments[i].itemEquipped != null)
+                {
+                    playerEquipments[i].itemEquipped.IsEquipped = false;
+                }
+
+                //Set new item as equipped
+                playerEquipments[i].itemEquipped = itemToAdd;
+                playerEquipments[i].itemEquipped.IsEquipped = true;
+                playerEquipments[i].spriteRender.sprite = itemToAdd.ItemSprite;
                 break;
             }
         }
@@ -91,11 +79,11 @@ public class PlayerController : MonoBehaviour
 
     private void UnequipItem(ItemObject itemToUnequip)
     {
-        for (int i = 0; i < equipments.Length; i++)
+        for (int i = 0; i < playerEquipments.Length; i++)
         {
-            if (itemToUnequip.ItemEnum == equipments[i].itemID)
+            if (itemToUnequip.ItemEnum == playerEquipments[i].itemID)
             {
-                equipments[i].equipSprite.sprite = equipments[i].defaultSprite;
+                playerEquipments[i].spriteRender.sprite = playerEquipments[i].defaultSprite;
                 break;
             }
         }
@@ -103,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
     public void AddItemToInventory(ItemObject itemToAdd)
     {
-        playerItens.Add(itemToAdd);
+        playerInventoryItens.Add(itemToAdd);
         EquipItem(itemToAdd);
 
         MenuManager.Instance.PlayerInventory.UpdateInventoryItensUI();
@@ -111,12 +99,17 @@ public class PlayerController : MonoBehaviour
 
     public void RemoveItemFromInventory(ItemObject itemToRemove)
     {
-        for (int i = 0; i < playerItens.Count; i++)
+        for (int i = 0; i < playerInventoryItens.Count; i++)
         {
-            if (playerItens[i] == itemToRemove)
+            if (playerInventoryItens[i] == itemToRemove)
             {
-                playerItens.RemoveAt(i);
-                UnequipItem(itemToRemove);
+                //If item is equipped, it needs to be unequipped first
+                if(itemToRemove.IsEquipped)
+                {
+                    UnequipItem(itemToRemove);
+                }
+                playerInventoryItens.RemoveAt(i);
+                
             }
         }
     }

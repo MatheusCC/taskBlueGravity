@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 5559796536370487718}
   - component: {fileID: 6940971046189039533}
   m_Layer: 0
-  m_Name: sword (1)
+  m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5559796536370487718
 Transform:
   m_ObjectHideFlags: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300174, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6296035702974324383
@@ -95,12 +95,12 @@ GameObject:
   - component: {fileID: 7950123961683666656}
   - component: {fileID: 8635213689719655322}
   m_Layer: 0
-  m_Name: shield (1)
+  m_Name: shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7950123961683666656
 Transform:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300228, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,7 +165,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7316538825720469601
@@ -246,7 +246,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300252, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
+  m_Sprite: {fileID: 21300084, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -753,7 +753,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300298, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -761,7 +761,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7316538829472763401
@@ -809,7 +809,7 @@ Animator:
   m_GameObject: {fileID: 7316538829472763401}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4184c92d441824ac3beb993f17f0d0fc, type: 2}
+  m_Controller: {fileID: 9100000, guid: ce8a133bf7dbd5146801565b5ecd8dc2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -831,7 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5629b75570028d408dacce38f0f2589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 5
 --- !u!114 &5323605048221032812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,9 +844,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0049b1a807ddef345baaf60abfbb67cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  helmet: {fileID: 7456606583419671039}
-  body: {fileID: 7456606588839201607}
-  backArm: {fileID: 7456606583908818755}
-  frontArm: {fileID: 7456606582901280863}
-  shield: {fileID: 8635213689719655322}
-  weapon: {fileID: 6940971046189039533}
+  playerEquipments:
+  - itemID: 0
+    spriteRender: {fileID: 7456606583419671039}
+    defaultSprite: {fileID: 0}
+    itemEquipped: {fileID: 0}
+  - itemID: 1
+    spriteRender: {fileID: 7456606588839201607}
+    defaultSprite: {fileID: 21300084, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
+    itemEquipped: {fileID: 0}
+  - itemID: 2
+    spriteRender: {fileID: 6940971046189039533}
+    defaultSprite: {fileID: 0}
+    itemEquipped: {fileID: 0}
+  - itemID: 3
+    spriteRender: {fileID: 8635213689719655322}
+    defaultSprite: {fileID: 0}
+    itemEquipped: {fileID: 0}
+  playerInventoryItens: []
