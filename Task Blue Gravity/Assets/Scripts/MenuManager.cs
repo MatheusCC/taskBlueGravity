@@ -10,10 +10,14 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameObject shopMenu = null;
     [SerializeField]
-    private GameObject inventory = null;
+    private GameObject inventoryMenu = null;
+    [SerializeField]
+    private Inventory playerInventory = null;
 
-
-
+    public Inventory PlayerInventory
+    {
+        get { return playerInventory; }
+    }
 
     private void Awake()
     {
@@ -40,13 +44,13 @@ public class MenuManager : MonoBehaviour
     public void OpenShop()
     {
         shopMenu.SetActive(true);
-        inventory.SetActive(true);
+        inventoryMenu.SetActive(true);
     }
 
     //Close show and inventory UI's
     public void CloseShop()
     {
         shopMenu.SetActive(false);
-        inventory.SetActive(false);
+        inventoryMenu.SetActive(false);
     }
 }

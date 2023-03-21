@@ -32,7 +32,7 @@ public class Movement : MonoBehaviour
         FlipPlayer();
         AnimationUpdate();
 
-        Debug.Log("Horizontal: " + horizontalInput + " | Vertical: " +verticalInput);
+        //Debug.Log("Horizontal: " + horizontalInput + " | Vertical: " +verticalInput);
 
         transform.Translate(movement * moveSpeed * Time.deltaTime);
     }

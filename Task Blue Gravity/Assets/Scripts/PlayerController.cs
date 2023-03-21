@@ -4,6 +4,30 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Sprites")]
+    [SerializeField]
+    private SpriteRenderer helmet = null;
+    [SerializeField]
+    private SpriteRenderer body = null;
+    [SerializeField]
+    private SpriteRenderer backArm = null;
+    [SerializeField]
+    private SpriteRenderer frontArm = null;
+    [SerializeField]
+    private SpriteRenderer shield = null;
+    [SerializeField]
+    private SpriteRenderer weapon = null;
+
+
+    [SerializeField]
+    private List<ItemObject> playerItens = new List<ItemObject>();
+
+    public List<ItemObject> PlayerItens
+    {
+        get { return playerItens; }
+    }
+
+
 
     void Update()
     {
@@ -26,4 +50,22 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    public void AddItemToInventory(ItemObject itemToAdd)
+    {
+        playerItens.Add(itemToAdd);
+        MenuManager.Instance.PlayerInventory.UpdateInventoryItensUI();
+    }
+
+    public void RemoveItemFromInventory(ItemObject itemToRemove)
+    {
+        for (int i = 0; i < playerItens.Count; i++)
+        {
+            if (playerItens[i] == itemToRemove)
+            {
+                playerItens.RemoveAt(i);
+            }
+        }
+    }
 }
+
