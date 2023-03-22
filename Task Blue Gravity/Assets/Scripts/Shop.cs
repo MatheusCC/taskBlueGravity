@@ -7,21 +7,23 @@ using TMPro;
 public class Shop : MonoBehaviour
 {
     [System.Serializable]
-    public struct ShopItem
+    public struct ShopItemSlot
     {
-        public GameObject itemGameObj;
+        public GameObject slot;
         public Image itemImage;
-        public TextMeshProUGUI itemNameText;
-        public TextMeshProUGUI itemPriceText;
+        public TextMeshProUGUI nameText;
+        public TextMeshProUGUI priceText;
         public int itemIndex;
     }
 
     [SerializeField]
-    private List<ItemObject> itemObj;
+    private List<Item> shopItem;
     [SerializeField]
-    private ShopItem[] shopItens = null;
+    private ShopItemSlot[] shopItensSlots = null;
+    /*
     [SerializeField]
     private Inventory inventory = null;
+    */
 
     private PlayerController playerController;
 
@@ -43,22 +45,22 @@ public class Shop : MonoBehaviour
     //Create the shop itens from the list of objects
     private void CreateShopItens()
     {
-        if(itemObj != null)
+        if(shopItem != null)
         {
-            for (int i = 0; i < shopItens.Length; i++)
+            for (int i = 0; i < shopItensSlots.Length; i++)
             {
-                if(i < itemObj.Count)
+                if(i < shopItem.Count)
                 {
-                    shopItens[i].itemImage.sprite = itemObj[i].ItemSprite;
-                    shopItens[i].itemNameText.text = itemObj[i].ItemName;
-                    shopItens[i].itemPriceText.text = itemObj[i].ItemPrice.ToString();
-                    shopItens[i].itemIndex = i;
-                    shopItens[i].itemGameObj.SetActive(true);
+                    shopItensSlots[i].itemImage.sprite = shopItem[i].ItemObj.Sprite;
+                    shopItensSlots[i].nameText.text = shopItem[i].ItemObj.Name;
+                    shopItensSlots[i].priceText.text = shopItem[i].ItemObj.Price.ToString();
+                    shopItensSlots[i].itemIndex = i;
+                    shopItensSlots[i].slot.SetActive(true);
                 }
                 else
                 {
                     // Disable other item fields from the shop if there is not more itens to add
-                    shopItens[i].itemGameObj.SetActive(false);
+                    shopItensSlots[i].slot.SetActive(false);
                 }
             }
         }
@@ -72,24 +74,25 @@ public class Shop : MonoBehaviour
     //Buy the item from the shop
     public void BuyItem(int index)
     {
-        if (HasEnoughtMoneyToBuy(itemObj[index].ItemPrice))
+        int itemPrice = shopItem[index].ItemObj.Price;
+        if (HasEnoughtMoneyToBuy(itemPrice))
         {
             //Decrease players money
-            GameManager.Instance.MoneySpent(itemObj[index].ItemPrice);
+            GameManager.Instance.MoneySpent(itemPrice);
 
             //Add the item to the player inventory
-            playerController.AddItemToInventory(itemObj[index]);
+            playerController.AddItemToInventory(shopItem[index]);
 
             //Remove the item bought from the shop and update the shop UI's
-            itemObj.RemoveAt(index);
+            shopItem.RemoveAt(index);
             UpdateShopItensUI();
         }
     }
 
-    public void AddItemToShop(ItemObject itemToAdd)
+    public void AddItemToShop(Item itemToAdd)
     {
         //Add item to shop and update the list of itens
-        itemObj.Add(itemToAdd); 
+        shopItem.Add(itemToAdd); 
         UpdateShopItensUI();
     }
 

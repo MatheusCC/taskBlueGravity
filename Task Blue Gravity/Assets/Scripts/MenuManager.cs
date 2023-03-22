@@ -10,7 +10,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameObject shopMenu = null;
     [SerializeField]
-    private GameObject inventoryMenu = null;
+    private GameObject inventoryMenu = null; 
+
+    /*
     [SerializeField]
     private Inventory playerInventory = null;
 
@@ -18,6 +20,7 @@ public class MenuManager : MonoBehaviour
     {
         get { return playerInventory; }
     }
+    */
 
     private void Awake()
     {

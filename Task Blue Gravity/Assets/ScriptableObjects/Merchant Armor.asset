@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca155cf05ec8cb14283759d81aed88b5, type: 3}
-  m_Name: Knight Helmet
+  m_Name: Merchant Armor
   m_EditorClassIdentifier: 
-  itemID: 0
-  nameItem: Knight Helmet
-  sprite: {fileID: 21300288, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
-  price: 150
+  itemID: 1
+  nameItem: Merchant Armor
+  sprite: {fileID: 21300262, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
+  price: 200

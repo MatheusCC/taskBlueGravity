@@ -17,35 +17,27 @@ public class ItemObject : ScriptableObject
     [SerializeField]
     private ItemID itemID = ItemID.HELMET;
     [SerializeField] 
-    private string itemName;
+    private string nameItem;
     [SerializeField]
-    private Sprite itemSprite = null;
+    private Sprite sprite = null;
     [SerializeField]
-    private int itemPrice = 0;
-    [SerializeField]
-    private bool isEquipped = false;
+    private int price = 0;
 
-    public string ItemName
+    public string Name
     {
-        get { return itemName; }
+        get { return nameItem; }
     }
-    public Sprite ItemSprite
+    public Sprite Sprite
     { 
-        get { return itemSprite; } 
+        get { return sprite; } 
     }
-    public int ItemPrice
+    public int Price
     {
-        get { return itemPrice; }
+        get { return price; }
     }
 
     public ItemID ItemEnum
     {
         get { return itemID; }
-    }
-
-    public bool IsEquipped
-    {
-        get { return isEquipped; }
-        set { isEquipped = value; }
     }
 }

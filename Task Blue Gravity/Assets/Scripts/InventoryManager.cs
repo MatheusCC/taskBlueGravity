@@ -5,15 +5,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance { get; private set; }
     [System.Serializable]
     public struct InventoryItem
     {
-        public GameObject itemGameObj;
-        public Image itemImage;
+        public GameObject inventorySlot;
+        public Image itemIcon;
         public TextMeshProUGUI itemNameText;
         public TextMeshProUGUI itemPriceText;
+        public Button equipItemButton;
         public int itemIndex;
     }
 
@@ -28,6 +30,11 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         CreateInventoryItens();
@@ -44,22 +51,23 @@ public class Inventory : MonoBehaviour
     //Create the shop itens from the list of objects
     private void CreateInventoryItens()
     {
-        if (playerController.PlayerItens != null)
+        if (playerController.PlayerInventoryItens != null)
         {
             for (int i = 0; i < inventoryItens.Length; i++)
             {
-                if (i < playerController.PlayerItens.Count)
+                if (i < playerController.PlayerInventoryItens.Count)
                 {
-                    inventoryItens[i].itemImage.sprite = playerController.PlayerItens[i].ItemSprite;
-                    inventoryItens[i].itemNameText.text = playerController.PlayerItens[i].ItemName;
-                    inventoryItens[i].itemPriceText.text = playerController.PlayerItens[i].ItemPrice.ToString();
+                    inventoryItens[i].itemIcon.sprite = playerController.PlayerInventoryItens[i].ItemObj.Sprite;
+                    inventoryItens[i].itemNameText.text = playerController.PlayerInventoryItens[i].ItemObj.Name;
+                    inventoryItens[i].itemPriceText.text = playerController.PlayerInventoryItens[i].ItemObj.Price.ToString();
+                    inventoryItens[i].equipItemButton.interactable = !playerController.PlayerInventoryItens[i].IsEquipped;
                     inventoryItens[i].itemIndex = i;
-                    inventoryItens[i].itemGameObj.SetActive(true);
+                    inventoryItens[i].inventorySlot.SetActive(true);
                 }
                 else
                 {
                     // Disable other item fields from the shop if there is not more itens to add
-                    inventoryItens[i].itemGameObj.SetActive(false);
+                    inventoryItens[i].inventorySlot.SetActive(false);
                 }
             }
         }
@@ -77,15 +85,18 @@ public class Inventory : MonoBehaviour
     public void SellItem(int itemIndex)
     {
         //Increase player money
-        GameManager.Instance.MoneyEarned(playerController.PlayerItens[itemIndex].ItemPrice);
+        GameManager.Instance.MoneyEarned(playerController.PlayerInventoryItens[itemIndex].ItemObj.Price);
 
         //Add the item to the shop
-        shop.AddItemToShop(playerController.PlayerItens[itemIndex]);
+        shop.AddItemToShop(playerController.PlayerInventoryItens[itemIndex]);
 
         //Remove the item from inventory and add to the shop and update the shop UI's
-        playerController.RemoveItemFromInventory(playerController.PlayerItens[itemIndex]);
+        playerController.RemoveItemFromInventory(playerController.PlayerInventoryItens[itemIndex]);
         UpdateInventoryItensUI();
     }
 
-
+    public void EquipItem(int itemIndex)
+    {
+        playerController.EquipItem(playerController.PlayerInventoryItens[itemIndex]);
+    }
 }
