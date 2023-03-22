@@ -15,4 +15,5 @@ MonoBehaviour:
   itemID: 3
   itemName: Shield
   itemSprite: {fileID: 21300228, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
-  itemPrice: 0
+  itemPrice: 250
+  isEquipped: 0

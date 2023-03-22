@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,9 +19,10 @@ public class Inventory : MonoBehaviour
 
     [SerializeField]
     private Shop shop = null;
-
     [SerializeField]
     private InventoryItem[] inventoryItens = null;
+    [SerializeField]
+    private TextMeshProUGUI playerMoneyText = null;
 
     private PlayerController playerController;
 
@@ -63,14 +65,20 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //Update list of itens and player current money text
     public void UpdateInventoryItensUI()
     {
         CreateInventoryItens();
+        
+        playerMoneyText.text = GameManager.Instance.CurrentPlayerMoney.ToString();
     }
 
     //Buy the item from the shop
     public void SellItem(int itemIndex)
     {
+        //Increase player money
+        GameManager.Instance.MoneyEarned(playerController.PlayerItens[itemIndex].ItemPrice);
+
         //Add the item to the shop
         shop.AddItemToShop(playerController.PlayerItens[itemIndex]);
 

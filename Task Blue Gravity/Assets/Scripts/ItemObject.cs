@@ -21,7 +21,7 @@ public class ItemObject : ScriptableObject
     [SerializeField]
     private Sprite itemSprite = null;
     [SerializeField]
-    private float itemPrice = 0f;
+    private int itemPrice = 0;
     [SerializeField]
     private bool isEquipped = false;
 
@@ -33,7 +33,7 @@ public class ItemObject : ScriptableObject
     { 
         get { return itemSprite; } 
     }
-    public float ItemPrice
+    public int ItemPrice
     {
         get { return itemPrice; }
     }

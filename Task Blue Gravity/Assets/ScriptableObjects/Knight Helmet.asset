@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca155cf05ec8cb14283759d81aed88b5, type: 3}
   m_Name: Knight Helmet
   m_EditorClassIdentifier: 
+  itemID: 0
   itemName: Knight Helmet
   itemSprite: {fileID: 21300298, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
-  itemPrice: 0
+  itemPrice: 150
+  isEquipped: 0

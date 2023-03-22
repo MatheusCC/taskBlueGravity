@@ -15,4 +15,5 @@ MonoBehaviour:
   itemID: 0
   itemName: Chain Helmet
   itemSprite: {fileID: 21300268, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
-  itemPrice: 0
+  itemPrice: 200
+  isEquipped: 1

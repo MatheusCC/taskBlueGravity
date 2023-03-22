@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Unequip item equipped and update the sprite to it defaults
     private void UnequipItem(ItemObject itemToUnequip)
     {
         for (int i = 0; i < playerEquipments.Length; i++)
@@ -89,11 +91,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Add item to inventory and equipped it
     public void AddItemToInventory(ItemObject itemToAdd)
     {
         playerInventoryItens.Add(itemToAdd);
         EquipItem(itemToAdd);
-
+        // Update the inventory item list
         MenuManager.Instance.PlayerInventory.UpdateInventoryItensUI();
     }
 
@@ -108,8 +111,7 @@ public class PlayerController : MonoBehaviour
                 {
                     UnequipItem(itemToRemove);
                 }
-                playerInventoryItens.RemoveAt(i);
-                
+                playerInventoryItens.RemoveAt(i);               
             }
         }
     }

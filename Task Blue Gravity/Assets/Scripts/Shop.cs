@@ -20,6 +20,8 @@ public class Shop : MonoBehaviour
     private List<ItemObject> itemObj;
     [SerializeField]
     private ShopItem[] shopItens = null;
+    [SerializeField]
+    private Inventory inventory = null;
 
     private PlayerController playerController;
 
@@ -70,12 +72,18 @@ public class Shop : MonoBehaviour
     //Buy the item from the shop
     public void BuyItem(int index)
     {
-        //Add the item to the player inventory
-        playerController.AddItemToInventory(itemObj[index]);
+        if (HasEnoughtMoneyToBuy(itemObj[index].ItemPrice))
+        {
+            //Decrease players money
+            GameManager.Instance.MoneySpent(itemObj[index].ItemPrice);
 
-        //Remove the item bought from the shop and update the shop UI's
-        itemObj.RemoveAt(index);
-        UpdateShopItensUI();
+            //Add the item to the player inventory
+            playerController.AddItemToInventory(itemObj[index]);
+
+            //Remove the item bought from the shop and update the shop UI's
+            itemObj.RemoveAt(index);
+            UpdateShopItensUI();
+        }
     }
 
     public void AddItemToShop(ItemObject itemToAdd)
@@ -83,6 +91,11 @@ public class Shop : MonoBehaviour
         //Add item to shop and update the list of itens
         itemObj.Add(itemToAdd); 
         UpdateShopItensUI();
+    }
+
+    private bool HasEnoughtMoneyToBuy(int itemPrice)
+    {
+        return GameManager.Instance.CurrentPlayerMoney >= itemPrice;
     }
     
 }
