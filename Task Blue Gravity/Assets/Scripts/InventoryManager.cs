@@ -16,6 +16,8 @@ public class InventoryManager : MonoBehaviour
         public TextMeshProUGUI itemNameText;
         public TextMeshProUGUI itemPriceText;
         public Button equipItemButton;
+        public TextMeshProUGUI equipItemButtonText;
+        public bool isItemEquipped;
         public int itemIndex;
     }
 
@@ -57,10 +59,12 @@ public class InventoryManager : MonoBehaviour
             {
                 if (i < playerController.PlayerInventoryItens.Count)
                 {
+                    UpdateItemButtonUI(i, playerController.PlayerInventoryItens[i].IsEquipped);
+
                     inventoryItens[i].itemIcon.sprite = playerController.PlayerInventoryItens[i].ItemObj.Sprite;
                     inventoryItens[i].itemNameText.text = playerController.PlayerInventoryItens[i].ItemObj.Name;
                     inventoryItens[i].itemPriceText.text = playerController.PlayerInventoryItens[i].ItemObj.Price.ToString();
-                    inventoryItens[i].equipItemButton.interactable = !playerController.PlayerInventoryItens[i].IsEquipped;
+                    //inventoryItens[i].equipItemButton.interactable = !playerController.PlayerInventoryItens[i].IsEquipped;
                     inventoryItens[i].itemIndex = i;
                     inventoryItens[i].inventorySlot.SetActive(true);
                 }
@@ -73,12 +77,12 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    //Update list of itens and player current money text
+    //Update the inventory list of itens UI
     public void UpdateInventoryItensUI()
     {
         CreateInventoryItens();
         
-        playerMoneyText.text = GameManager.Instance.CurrentPlayerMoney.ToString();
+        //playerMoneyText.text = GameManager.Instance.CurrentPlayerMoney.ToString();
     }
 
     //Buy the item from the shop
@@ -86,6 +90,7 @@ public class InventoryManager : MonoBehaviour
     {
         //Increase player money
         GameManager.Instance.MoneyEarned(playerController.PlayerInventoryItens[itemIndex].ItemObj.Price);
+        playerMoneyText.text = GameManager.Instance.CurrentPlayerMoney.ToString();
 
         //Add the item to the shop
         shop.AddItemToShop(playerController.PlayerInventoryItens[itemIndex]);
@@ -95,8 +100,39 @@ public class InventoryManager : MonoBehaviour
         UpdateInventoryItensUI();
     }
 
-    public void EquipItem(int itemIndex)
+    public void EquipOrRemoveItem(int itemIndex)
     {
-        playerController.EquipItem(playerController.PlayerInventoryItens[itemIndex]);
+        Item item = playerController.PlayerInventoryItens[itemIndex];
+
+        //Equip item if not equipped
+        if (!item.IsEquipped)
+        {
+            // remove any item equipped for the specific ID
+            playerController.UnequipItem(item.ItemObj.ItemEnum);
+
+            // then equipe the new item
+            playerController.EquipItem(item);
+        }
+        else
+        {
+            // remove any item equipped for the specific ID
+            playerController.UnequipItem(item.ItemObj.ItemEnum);
+        }
+    }
+
+    private void UpdateItemButtonUI(int itemIndex, bool isEquipped)
+    {
+        if (isEquipped)
+        {
+            //inventoryItens[itemIndex].isItemEquipped = true;
+            inventoryItens[itemIndex].equipItemButtonText.text = "Remove";
+            inventoryItens[itemIndex].equipItemButton.image.color = Color.gray;
+        }
+        else
+        {
+            //inventoryItens[itemIndex].isItemEquipped = false;
+            inventoryItens[itemIndex].equipItemButtonText.text = "Equip";
+            inventoryItens[itemIndex].equipItemButton.image.color = Color.green;
+        }
     }
 }

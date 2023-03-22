@@ -109,13 +109,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void RemoveAndEquipdItem(ItemObject.ItemID itemID)
-    {
-
-    }
-
     // Unequip the item that is equipped for the specific slot
-    private void UnequipItem(ItemObject.ItemID itemID)
+    public void UnequipItem(ItemObject.ItemID itemID)
     {
         for (int i = 0; i < playerEquipments.Length; i++)
         {
@@ -128,6 +123,7 @@ public class PlayerController : MonoBehaviour
                 playerEquipments[i].spriteRender.sprite = playerEquipments[i].defaultSprite;
             }
         }
+        InventoryManager.Instance.UpdateInventoryItensUI();
     }
 
     // Add item to inventory and equipped it

@@ -19,4 +19,9 @@ public class Item : MonoBehaviour
         get { return isEquipped; }
         set { isEquipped = value; }
     }
+
+    private void Awake()
+    {
+        isEquipped = false;
+    }
 }

@@ -31,7 +31,12 @@ public class Shop : MonoBehaviour
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        //CreateShopItens();
+
+        // Set all shop item to not equipped to avoid erros
+        for (int i = 0; i < shopItem.Count; i++)
+        {
+            shopItem[i].IsEquipped = false;
+        }
     }
 
 
