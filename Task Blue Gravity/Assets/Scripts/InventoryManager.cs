@@ -83,19 +83,22 @@ public class InventoryManager : MonoBehaviour
         UpdatePlayerMoneyText();
     }
 
-    //Buy the item from the shop
+    //Sell the item back to the shop
     public void SellItem(int itemIndex)
     {
-        //Increase player money
-        GameManager.Instance.MoneyEarned(playerController.PlayerInventoryItens[itemIndex].ItemObj.Price);
-        playerMoneyText.text = GameManager.Instance.CurrentPlayerMoney.ToString();
+        if (MenuManager.Instance.IsShopOpen())
+        {
+            //Increase player money
+            GameManager.Instance.MoneyEarned(playerController.PlayerInventoryItens[itemIndex].ItemObj.Price);
+            playerMoneyText.text = GameManager.Instance.CurrentPlayerMoney.ToString();
 
-        //Add the item to the shop
-        ShopManager.Instance.AddItemToShop(playerController.PlayerInventoryItens[itemIndex]);
+            //Add the item to the shop
+            ShopManager.Instance.AddItemToShop(playerController.PlayerInventoryItens[itemIndex]);
 
-        //Remove the item from inventory and add to the shop and update the shop UI's
-        playerController.RemoveItemFromInventory(playerController.PlayerInventoryItens[itemIndex]);
-        UpdateInventoryItensUI();
+            //Remove the item from inventory and add to the shop and update the shop UI's
+            playerController.RemoveItemFromInventory(playerController.PlayerInventoryItens[itemIndex]);
+            UpdateInventoryItensUI();
+        }
     }
 
     public void EquipOrRemoveItem(int itemIndex)

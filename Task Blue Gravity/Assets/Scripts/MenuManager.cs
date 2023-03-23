@@ -72,4 +72,9 @@ public class MenuManager : MonoBehaviour
         startGamePanel.SetActive(false);
         GameManager.Instance.StartGame();
     }
+
+    public bool IsShopOpen()
+    {
+        return shopMenu.activeInHierarchy;
+    }
 }
