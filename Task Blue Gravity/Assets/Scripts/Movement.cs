@@ -16,23 +16,21 @@ public class Movement : MonoBehaviour
     {
         myAnimator = GetComponent<Animator>();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        //Player inputs to move character
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-        movement = new Vector2(horizontalInput, verticalInput);
-        FlipPlayer();
-        AnimationUpdate();
-
-        //Debug.Log("Horizontal: " + horizontalInput + " | Vertical: " +verticalInput);
+        // Player inputs to move character
+        if (GameManager.Instance.PlayerInputOn)
+        {
+            // move character
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
+            movement = new Vector2(horizontalInput, verticalInput);
+            // flip player sprite 
+            FlipPlayer();
+            AnimationUpdate();
+        }
 
         transform.Translate(movement * moveSpeed * Time.deltaTime);
     }

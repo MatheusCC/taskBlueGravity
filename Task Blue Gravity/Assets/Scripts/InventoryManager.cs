@@ -40,8 +40,6 @@ public class InventoryManager : MonoBehaviour
         CreateInventoryItens();
     }
 
-
-
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -62,7 +60,6 @@ public class InventoryManager : MonoBehaviour
                     inventoryItens[i].itemIcon.sprite = playerController.PlayerInventoryItens[i].ItemObj.Sprite;
                     inventoryItens[i].itemNameText.text = playerController.PlayerInventoryItens[i].ItemObj.Name;
                     inventoryItens[i].itemPriceText.text = playerController.PlayerInventoryItens[i].ItemObj.Price.ToString();
-                    //inventoryItens[i].equipItemButton.interactable = !playerController.PlayerInventoryItens[i].IsEquipped;
                     inventoryItens[i].itemIndex = i;
                     inventoryItens[i].inventorySlot.SetActive(true);
                 }
@@ -109,7 +106,7 @@ public class InventoryManager : MonoBehaviour
             playerController.UnequipItem(item.ItemObj.ItemEnum);
 
             // then equipe the new item
-            playerController.EquipItem(item);
+            playerController.EquipItem(item, itemIndex);
         }
         else
         {

@@ -41,14 +41,6 @@ public class ShopManager : MonoBehaviour
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
-
-
-    // Start is called before the first frame update
-    private void OnEnable()
-    {
-        //CreateShopItens();
-    }
-
     //Create the shop itens from the list of objects
     private void CreateShopItens()
     {

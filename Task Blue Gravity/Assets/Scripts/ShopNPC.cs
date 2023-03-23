@@ -33,24 +33,10 @@ public class ShopNPC : MonoBehaviour
         if(IsInDistanceToInteract())
         {
             EnableChatPanel(true);
-            // With the click of the mouse left button
-            // create a raycast down from the mouse position and detect if the shop was clicked;
+
             if (Input.GetKeyDown(KeyCode.F))
             {
-
                 OpenShop();
-                /*
-                RaycastHit2D hit2D = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), -Vector2.up);
-
-                if (hit2D.collider != null)
-                {
-                    //Open the shop if the shop as clicked
-                    if (hit2D.collider.gameObject.CompareTag("Merchant"))
-                    {
-                        MenuManager.Instance.OpenShop();
-                    }
-                }
-                */
             }
         }
         else

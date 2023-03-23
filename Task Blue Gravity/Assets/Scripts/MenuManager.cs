@@ -10,7 +10,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameObject shopMenu = null;
     [SerializeField]
-    private GameObject inventoryMenu = null; 
+    private GameObject inventoryMenu = null;
+    [SerializeField]
+    private GameObject startGamePanel = null;
 
     /*
     [SerializeField]
@@ -57,5 +59,17 @@ public class MenuManager : MonoBehaviour
     {
         shopMenu.SetActive(false);
         inventoryMenu.SetActive(false);
+    }
+
+    public void OpenStartGamePanel()
+    {
+        GameManager.Instance.EnablePlayerInput(false);
+        startGamePanel.SetActive(true);
+    }
+
+    public void CloseStartGamePanel()
+    {
+        startGamePanel.SetActive(false);
+        GameManager.Instance.StartGame();
     }
 }

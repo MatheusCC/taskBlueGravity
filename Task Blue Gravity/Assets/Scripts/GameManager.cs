@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int playerMoney = 1000;
 
+    private bool playerInputOn;
+
+    public bool PlayerInputOn
+    {
+        get { return playerInputOn; }
+    }
 
     public int CurrentPlayerMoney
     {
@@ -21,6 +27,14 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        playerInputOn = true;
+    }
+
+    private void Start()
+    {
+        // Open Start Game Info Panel
+        MenuManager.Instance.OpenStartGamePanel();
     }
 
 
@@ -34,5 +48,15 @@ public class GameManager : MonoBehaviour
     public void MoneyEarned(int value)
     {
         playerMoney += value;
+    }
+
+    public void StartGame()
+    {
+        EnablePlayerInput(true);
+    }
+
+    public void EnablePlayerInput(bool isOn)
+    {
+        playerInputOn = isOn;
     }
 }
