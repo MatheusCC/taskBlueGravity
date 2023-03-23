@@ -106,7 +106,7 @@ public class InventoryManager : MonoBehaviour
             playerController.UnequipItem(item.ItemObj.ItemEnum);
 
             // then equipe the new item
-            playerController.EquipItem(item, itemIndex);
+            playerController.EquipItem(item);
         }
         else
         {
