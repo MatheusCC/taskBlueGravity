@@ -41,15 +41,17 @@ public class ShopManager : MonoBehaviour
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
-    //Create the shop itens from the list of objects
+    //Create the shop UI itens from the NPC list of itens
     private void CreateShopItens()
     {
         if(shopItemList != null)
         {
             for (int i = 0; i < shopItensSlots.Length; i++)
             {
+                // Create shop slots depending the NPC itens quantity
                 if(i < shopItemList.Count)
                 {
+                    // Update shop slot item UI with the item details
                     shopItensSlots[i].itemImage.sprite = shopItemList[i].ItemObj.Sprite;
                     shopItensSlots[i].nameText.text = shopItemList[i].ItemObj.Name;
                     shopItensSlots[i].priceText.text = shopItemList[i].ItemObj.Price.ToString();

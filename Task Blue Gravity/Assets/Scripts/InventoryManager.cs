@@ -17,7 +17,6 @@ public class InventoryManager : MonoBehaviour
         public TextMeshProUGUI itemPriceText;
         public Button equipItemButton;
         public TextMeshProUGUI equipItemButtonText;
-        public bool isItemEquipped;
         public int itemIndex;
     }
 
@@ -46,17 +45,21 @@ public class InventoryManager : MonoBehaviour
         CreateInventoryItens();
     }
 
-    //Create the shop itens from the list of objects
+    //Create the inventory itens from the list of objects
     private void CreateInventoryItens()
     {
         if (playerController.PlayerInventoryItens != null)
         {
             for (int i = 0; i < inventoryItens.Length; i++)
             {
+                // Create inventory slots depending on the player itens in the inventory 
                 if (i < playerController.PlayerInventoryItens.Count)
                 {
+                    // If the item is equipped or not,
+                    // Update the UI button to corret indicate
                     UpdateItemButtonUI(i, playerController.PlayerInventoryItens[i].IsEquipped);
 
+                    // Update inventory slot item UI with the item details
                     inventoryItens[i].itemIcon.sprite = playerController.PlayerInventoryItens[i].ItemObj.Sprite;
                     inventoryItens[i].itemNameText.text = playerController.PlayerInventoryItens[i].ItemObj.Name;
                     inventoryItens[i].itemPriceText.text = playerController.PlayerInventoryItens[i].ItemObj.Price.ToString();
@@ -119,13 +122,11 @@ public class InventoryManager : MonoBehaviour
     {
         if (isEquipped)
         {
-            //inventoryItens[itemIndex].isItemEquipped = true;
             inventoryItens[itemIndex].equipItemButtonText.text = "Remove";
             inventoryItens[itemIndex].equipItemButton.image.color = Color.gray;
         }
         else
         {
-            //inventoryItens[itemIndex].isItemEquipped = false;
             inventoryItens[itemIndex].equipItemButtonText.text = "Equip";
             inventoryItens[itemIndex].equipItemButton.image.color = Color.green;
         }
