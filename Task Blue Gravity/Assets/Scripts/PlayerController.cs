@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour
                 if (hit2D.collider.gameObject.CompareTag("Merchant"))
                 {
                     MenuManager.Instance.OpenShop();
-                    Debug.Log("OPEN SHOP!");
                 }
             }
         }

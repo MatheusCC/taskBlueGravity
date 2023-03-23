@@ -22,8 +22,6 @@ public class InventoryManager : MonoBehaviour
     }
 
     [SerializeField]
-    private Shop shop = null;
-    [SerializeField]
     private InventoryItem[] inventoryItens = null;
     [SerializeField]
     private TextMeshProUGUI playerMoneyText = null;
@@ -47,7 +45,7 @@ public class InventoryManager : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable()
     {
-        //CreateInventoryItens();
+        CreateInventoryItens();
     }
 
     //Create the shop itens from the list of objects
@@ -81,8 +79,8 @@ public class InventoryManager : MonoBehaviour
     public void UpdateInventoryItensUI()
     {
         CreateInventoryItens();
-        
-        //playerMoneyText.text = GameManager.Instance.CurrentPlayerMoney.ToString();
+
+        UpdatePlayerMoneyText();
     }
 
     //Buy the item from the shop
@@ -93,7 +91,7 @@ public class InventoryManager : MonoBehaviour
         playerMoneyText.text = GameManager.Instance.CurrentPlayerMoney.ToString();
 
         //Add the item to the shop
-        shop.AddItemToShop(playerController.PlayerInventoryItens[itemIndex]);
+        ShopManager.Instance.AddItemToShop(playerController.PlayerInventoryItens[itemIndex]);
 
         //Remove the item from inventory and add to the shop and update the shop UI's
         playerController.RemoveItemFromInventory(playerController.PlayerInventoryItens[itemIndex]);
@@ -134,5 +132,10 @@ public class InventoryManager : MonoBehaviour
             inventoryItens[itemIndex].equipItemButtonText.text = "Equip";
             inventoryItens[itemIndex].equipItemButton.image.color = Color.green;
         }
+    }
+
+    private void UpdatePlayerMoneyText()
+    {
+        playerMoneyText.text = GameManager.Instance.CurrentPlayerMoney.ToString();
     }
 }

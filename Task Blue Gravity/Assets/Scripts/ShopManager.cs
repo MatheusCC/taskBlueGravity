@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Shop : MonoBehaviour
+public class ShopManager : MonoBehaviour
 {
+    public static ShopManager Instance { get; private set; }
+
     [System.Serializable]
     public struct ShopItemSlot
     {
@@ -16,27 +18,27 @@ public class Shop : MonoBehaviour
         public int itemIndex;
     }
 
-    [SerializeField]
-    private List<Item> shopItem;
+    //[SerializeField]
     [SerializeField]
     private ShopItemSlot[] shopItensSlots = null;
-    /*
     [SerializeField]
-    private Inventory inventory = null;
-    */
-
+    private List<Item> shopItemList;
     private PlayerController playerController;
 
-    private void Awake()
+    public List<Item> ShopItems
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        get { return shopItemList; }
+        set { shopItemList = value; }
+    }
 
-
-        // Set all shop item to not equipped to avoid erros
-        for (int i = 0; i < shopItem.Count; i++)
+    private void Awake()
+    {       
+        if(Instance == null)
         {
-            shopItem[i].IsEquipped = false;
+            Instance = this;
         }
+        
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
 
@@ -44,21 +46,21 @@ public class Shop : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable()
     {
-        CreateShopItens();
+        //CreateShopItens();
     }
 
     //Create the shop itens from the list of objects
     private void CreateShopItens()
     {
-        if(shopItem != null)
+        if(shopItemList != null)
         {
             for (int i = 0; i < shopItensSlots.Length; i++)
             {
-                if(i < shopItem.Count)
+                if(i < shopItemList.Count)
                 {
-                    shopItensSlots[i].itemImage.sprite = shopItem[i].ItemObj.Sprite;
-                    shopItensSlots[i].nameText.text = shopItem[i].ItemObj.Name;
-                    shopItensSlots[i].priceText.text = shopItem[i].ItemObj.Price.ToString();
+                    shopItensSlots[i].itemImage.sprite = shopItemList[i].ItemObj.Sprite;
+                    shopItensSlots[i].nameText.text = shopItemList[i].ItemObj.Name;
+                    shopItensSlots[i].priceText.text = shopItemList[i].ItemObj.Price.ToString();
                     shopItensSlots[i].itemIndex = i;
                     shopItensSlots[i].slot.SetActive(true);
                 }
@@ -76,20 +78,25 @@ public class Shop : MonoBehaviour
         CreateShopItens();
     }
 
+    public void OpenShopPanel()
+    {
+        CreateShopItens();
+    }
+
     //Buy the item from the shop
     public void BuyItem(int index)
     {
-        int itemPrice = shopItem[index].ItemObj.Price;
+        int itemPrice = shopItemList[index].ItemObj.Price;
         if (HasEnoughtMoneyToBuy(itemPrice))
         {
             //Decrease players money
             GameManager.Instance.MoneySpent(itemPrice);
 
             //Add the item to the player inventory
-            playerController.AddItemToInventory(shopItem[index]);
+            playerController.AddItemToInventory(shopItemList[index]);
 
             //Remove the item bought from the shop and update the shop UI's
-            shopItem.RemoveAt(index);
+            shopItemList.RemoveAt(index);
             UpdateShopItensUI();
         }
     }
@@ -97,13 +104,18 @@ public class Shop : MonoBehaviour
     public void AddItemToShop(Item itemToAdd)
     {
         //Add item to shop and update the list of itens
-        shopItem.Add(itemToAdd); 
+        shopItemList.Add(itemToAdd); 
         UpdateShopItensUI();
     }
 
     private bool HasEnoughtMoneyToBuy(int itemPrice)
     {
         return GameManager.Instance.CurrentPlayerMoney >= itemPrice;
+    }
+
+    public void CloseShop()
+    {
+        MenuManager.Instance.CloseShop();
     }
     
 }

@@ -30,27 +30,29 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
+        //Open or Close Inventory
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            OpenInventory(inventoryMenu.activeInHierarchy);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OpenInventory(bool open)
     {
-        
+        inventoryMenu.SetActive(!open);
     }
 
     //Open show and inventory UI's
     public void OpenShop()
     {
         shopMenu.SetActive(true);
+        ShopManager.Instance.OpenShopPanel();
         inventoryMenu.SetActive(true);
     }
 
-    //Close show and inventory UI's
+    //Close shop and inventory UI's
     public void CloseShop()
     {
         shopMenu.SetActive(false);
